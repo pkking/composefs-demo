@@ -1,6 +1,8 @@
 本demo用于验证composefs的一些特性
 
 ## 文件共享
+`composefs`支持在不同的镜像之间共享文件，下面我们来验证一下
+
 准备环境
 ```bash
 prepare.sh
