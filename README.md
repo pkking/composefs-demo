@@ -100,13 +100,18 @@ mount.composefs -o basedir=objects 24.03-lts-sp1.cfs 24.03-lts-sp1-mnt
 
 首先我们先清空`/usr/bin/ldd`的`page cache`
 ```bash
+# 找到/usr/bin/ldd 对应的文件
+composefs-info --basedir=objects ls 24.04-lts.cfs |grep '/usr/bin/ldd'
 /usr/bin/ldd    @ 93/875696648feaf84d3c40aed0d801d53ee910ad6063bb409e9c20a5bb276cfb
+
+# 淘汰该文件的page cache
 ~/vmtouch/vmtouch  -ev objects/93/875696648feaf84d3c40aed0d801d53ee910ad6063bb409e9c20a5bb276cfb
 Evicting objects/93/875696648feaf84d3c40aed0d801d53ee910ad6063bb409e9c20a5bb276cfb
            Files: 1
      Directories: 0
    Evicted Pages: 2 (8K)
          Elapsed: 5.9e-05 seconds
+#验证 page cache已经被淘汰
  ~/vmtouch/vmtouch  24.03-lts-sp1-mnt/usr/bin/ldd                                                
            Files: 1
      Directories: 0
